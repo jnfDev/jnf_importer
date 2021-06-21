@@ -3,8 +3,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-define('_JNF_IMPORTER_FILE_', '');
-
 require __DIR__ . '/vendor/autoload.php';
 
 use League\Csv\Reader;
