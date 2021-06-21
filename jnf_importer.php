@@ -26,10 +26,15 @@ class Jnf_Importer extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->l('Product Importer');
-        $this->description = $this->l('This plugins import a list of products by using a csv file. This plugin is an "admission test" for Interfell.');
+        $this->displayName = $this->trans('Product Importer', [], 'Modules.Jnfimporter.Jnfimporter');
+        $this->description = $this->trans('This plugins import a list of products by using a csv file. This plugin is an "admission test" for Interfell.');
 
-        $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
+        $this->confirmUninstall = $this->trans('Are you sure you want to uninstall?', [], 'Modules.Jnfimporter.Jnfimporter');
+    }
+
+    public function isUsingNewTranslationSystem()
+    {
+        return true;
     }
 
     public function addProduct($name, $ref, $ean13, $wholesale_price, $price, $id_tax_rules_group, $qty, $catDef, $catAll, $id_manufacturer )
@@ -114,6 +119,7 @@ class Jnf_Importer extends Module
 
         return $db->getValue($sql);
     }
+    
 
     /** Admin Configuration Page */
    
@@ -195,7 +201,7 @@ class Jnf_Importer extends Module
                 }
 
                 @unlink($temp_location);
-                $output .= $this->displayConfirmation($this->l('Importation Finished'));
+                $output .= $this->displayConfirmation($this->trans('Importation Finished', [], 'Modules.Jnfimporter.Jnfimporter'));
             }
 
         }
@@ -220,7 +226,7 @@ class Jnf_Importer extends Module
         // Init Fields form array
         $fieldsForm[0]['form'] = [
             'legend' => [
-                'title' => $this->l('Importer'),
+                'title' => $this->trans('Importer', [], 'Modules.Jnfimporter.Jnfimporter'),
             ],
             'input' => [
                 [
@@ -233,7 +239,7 @@ class Jnf_Importer extends Module
                         'id'    => 'id_lang',
                         'name'  => 'name',
                         'default' => [
-                            'label' => $this->l('Shop Default Lang'),
+                            'label' => $this->trans('Shop Default Lang', [], 'Modules.Jnfimporter.Jnfimporter'),
                             'value' => $defaultLang
                         ],
                     ]
@@ -248,7 +254,7 @@ class Jnf_Importer extends Module
                         'id'    => 'id_country',
                         'name'  => 'name',
                         'default' => [
-                            'label' => $this->l('Shop Default Country'),
+                            'label' => $this->trans('Shop Default Country', [], 'Modules.Jnfimporter.Jnfimporter'),
                             'value' => (int) Configuration::get('PS_COUNTRY_DEFAULT')
                         ],
                     ]
@@ -266,19 +272,19 @@ class Jnf_Importer extends Module
                     'expand' => [
                         'print_total' => count($taxRulesGroups),
                         'default'     => 'show',
-                        'show'        => ['text' => $this->l('show'), 'icon' => 'plus-sign-alt'],
-                        'hide'        => ['text' => $this->l('hide'), 'icon' => 'minus-sign-alt'],
+                        'show'        => ['text' => $this->trans('show', [], 'Modules.Jnfimporter.Jnfimporter'), 'icon' => 'plus-sign-alt'],
+                        'hide'        => ['text' => $this->trans('hide', [], 'Modules.Jnfimporter.Jnfimporter'), 'icon' => 'minus-sign-alt'],
                     ]
                 ],
                 [
                     'type'  => 'file',
-                    'label' => $this->l('File to Import'),
+                    'label' => $this->trans('File to Import', [], 'Modules.Jnfimporter.Jnfimporter'),
                     'name'  => 'JNF_IMPORTER_FILE',
                     'display_image' => true,
                 ],
             ],
             'submit' => [
-                'title' => $this->l('Save'),
+                'title' => $this->trans('Save', [], 'Modules.Jnfimporter.Jnfimporter'),
                 'class' => 'btn btn-default pull-right'
             ]
         ];
@@ -302,13 +308,13 @@ class Jnf_Importer extends Module
         $helper->submit_action = 'submit'.$this->name;
         $helper->toolbar_btn = [
             'save' => [
-                'desc' => $this->l('Save'),
+                'desc' => $this->trans('Save', [], 'Modules.Jnfimporter.Jnfimporter'),
                 'href' => AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
                 '&token='.Tools::getAdminTokenLite('AdminModules'),
             ],
             'back' => [
                 'href' => AdminController::$currentIndex.'&token='.Tools::getAdminTokenLite('AdminModules'),
-                'desc' => $this->l('Back to list')
+                'desc' => $this->trans('Back to list', [], 'Modules.Jnfimporter.Jnfimporter')
             ]
         ];
 
@@ -320,10 +326,4 @@ class Jnf_Importer extends Module
 
         return $helper->generateForm($fieldsForm);
     }
-
-    public function isUsingNewTranslationSystem()
-    {
-        return true;
-    }
-
 }
