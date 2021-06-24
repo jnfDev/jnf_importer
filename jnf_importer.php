@@ -132,11 +132,11 @@ class Jnf_Importer extends Module
             $temp_location = __DIR__ . '/temp/' . sha1(microtime()) . '.' . $file_type;
             
             if ($file_type !== 'csv') {
-                $errors[] = $this->displayError('Wrong file format, the file must be a .csv file!');
+                $errors[] = $this->trans('Wrong file format, the file must be a .csv file!', [], 'Modules.Jnfimporter.Jnfimporter');
             }
 
             if (!move_uploaded_file($_FILES['JNF_IMPORTER_FILE']['tmp_name'], $temp_location)) {
-                $errors[] = $this->displayError('File couldn\'t be uploaded');
+                $errors[] = $this->trans('File couldn\'t be uploaded', [], 'Modules.Jnfimporter.Jnfimporter');
             }
 
             // Process file only
@@ -144,7 +144,6 @@ class Jnf_Importer extends Module
             if (!count($errors)) {
                 
                 $selected_lang = (int) Tools::getValue('JNF_IMPORTER_LANG');
-
 
                 $reader = Reader::createFromPath( $temp_location, 'r' );
                 $reader->setHeaderOffset(0);
@@ -200,6 +199,8 @@ class Jnf_Importer extends Module
 
                 @unlink($temp_location);
                 $output .= $this->displayConfirmation($this->trans('Importation Finished', [], 'Modules.Jnfimporter.Jnfimporter'));
+            } else {
+                $output .= $this->displayError(implode('<br />', $errors));
             }
 
         }
