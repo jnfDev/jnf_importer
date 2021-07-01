@@ -25,7 +25,7 @@ class Jnf_Importer extends Module
         parent::__construct();
 
         $this->displayName = $this->trans('Product Importer', [], 'Modules.Jnfimporter.Jnfimporter');
-        $this->description = $this->trans('This plugins import a list of products by using a csv file. This plugin is an "admission test" for Interfell.');
+        $this->description = $this->trans('This plugins import a list of products by using a csv file. This plugin is an "admission test" for Interfell.', [], 'Modules.Jnfimporter.Jnfimporter');
 
         $this->confirmUninstall = $this->trans('Are you sure you want to uninstall?', [], 'Modules.Jnfimporter.Jnfimporter');
     }
